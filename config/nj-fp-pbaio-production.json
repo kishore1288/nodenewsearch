@@ -1,0 +1,10 @@
+{
+  "StorageMadeEasy": {
+    "SMEInstance": {
+      "hostname": "https://sme.lawstudio.com/api/rpc.php"
+    },
+    "TokenGenerator": {
+      "hostname": "http://10.250.0.171:8080"
+    }
+  }
+}

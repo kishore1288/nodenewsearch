@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>NodeSearch</title>    
+</head>
+<body>
+
+<topbar right>
+    <item><a href="/">Home</a></item>
+    <item></item>
+    <item><a href="docs">Docs</a></item>
+    <item></item>
+    <item><a href="doc-analysis">Search Analysis</a></item>
+</topbar>
+
+<xmp style="display:none;" toc>
+# Getting Started Demo
+
+Enter in a username below a search for all PDF's for that user will be displayed as JSON
+<form id="postSearch">
+<input type="text", id="username", placeholder="Enter Username" />
+<input type="submit", id="submitButton", value="Search" />
+</form>
+<div id="errors"></div>
+<div id="results"></div>
+</xmp>
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="/javascripts/strapdown/strapdown-topbar.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
+
+        var socket = io.connect('http://' + window.location.hostname + ':' + window.location.port);
+        var $postSearch = $('#postSearch');
+        var user = '';
+
+        console.log('connection established');               
+
+        $postSearch.on('submit', function (e) {
+            user = $('input:text').val();
+            e.preventDefault();
+
+            var folderReqData = {
+                Username: user,
+                FolderId: 0
+            };
+
+            //socket.emit('get-folders', folderReqData);
+
+            // Our data to pass
+            var requestData = {
+                Username: user,
+                FolderId: 0,
+                Filename: '',
+                Metadata: [
+                    {
+                        Id: 1,
+                        TextClause: 0,
+                        Criteria: 'PETE',
+                        SearchClause: 0
+                    }
+                ], 
+                Type: 'v'
+            };
+
+            // Emit to the socket that we want our messages for the data specifeid
+            socket.emit('search', requestData);
+
+            $('#results').children().remove();
+            $('#errors').children().remove();
+        });
+
+        socket.on('folder-list', function (data) {
+            var $newFolder = $('<div></div>');
+            $newFolder.attr('id', 'folder');
+        })
+
+        socket.on('search-result', function (data) {
+            
+            var $newResultBlock = $('<div></div>');
+            $newResultBlock.attr('id', data.id);
+
+            $newResultBlock.append($('<p>').text(JSON.stringify(data)));
+
+            $('#results').append($newResultBlock);
+
+
+            console.log('search success, see data below');
+            console.log(JSON.stringify(data));
+        });
+
+        socket.on('search-failure', function (data) {
+            
+            var $newErrorBlock = $('<div></div>');
+            $newErrorBlock.attr('class', 'error');
+
+            var $errorText = $('<p></p>');
+            $errorText.append(document.createTextNode('error | ' + data.error));
+
+            $newErrorBlock.append($errorText);
+            $('#errors').append($newErrorBlock);
+        });
+
+        socket.on('folder-list-failure', function (data) {
+
+            var $newErrorBlock = $('<div></div>');
+            $newErrorBlock.attr('class', 'error');
+
+            var $errorText = $('<p></p>');
+            $errorText.append(document.createTextNode('error | ' + data.error));
+
+            $newErrorBlock.append($errorText);
+            $('#errors').append($newErrorBlock);
+        });
+
+        socket.on('search-noresult', function (data) {
+
+            var $noResultBlock = $('<div></div>');
+            $noResultBlock.attr('class', 'noresult');
+
+            var $noResultText = $('<p></p>');
+            $noResultText.append(document.createTextNode(data.status + ' | ' + data.statusMessage + ' | criteria passed: ' + JSON.stringify(data.criteria)));
+
+            $noResultBlock.append($noResultText);
+            $('#results').append($noResultBlock);
+        });
+    });
+</script>
+</body>
+
+</html>

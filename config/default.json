@@ -1,0 +1,32 @@
+{
+	"Winston": {
+		"Mail": {
+			"to": "pbaio@veritext.com",
+			"from": "Errors.NodeSearch@veritext.com",
+			"host": "192.168.202.37",
+			"port": 25
+		}
+	},
+	"virtualDirPath": "search",
+  "concurrencyMultiplier": 8,
+	"StorageMadeEasy": {
+		"SMEInstance": {
+            
+			"hostname": "https://pluto.fileserverapp.com/api/rpc.php"
+            
+		},
+		"TokenGenerator": {
+			"hostname": "http://192.168.205.80:8081",
+			"path": "/Auth/apiToken?username=",
+			"method": "GET"
+		},
+		"sanitizeResultsMissingExtension": true,
+		"requestTimeout": 120000,
+		"resultUrlProtocol": "https",
+		"ResultExtraFunctions": {
+			"metadata": true,
+			"annotatorUrl": true,
+			"downloadUrl": true			
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+  "virtualDirPath": "",
+  "StorageMadeEasy": {
+    "SMEInstance": {
+      "hostname": "https://sme.lawstudio.com/api/rpc.php"
+    },
+    "TokenGenerator": {
+      "hostname": "https://svs2.veritext.com:8080"
+    }
+  }
+}

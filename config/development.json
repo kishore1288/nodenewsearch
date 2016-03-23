@@ -1,0 +1,10 @@
+{
+    "StorageMadeEasy": {
+        "TokenOptions": { 
+            "rejectUnauthorized":  true
+        },
+        "MetaIds": {
+            "proceedingDate": 19
+        }
+    }
+}

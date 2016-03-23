@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>NodeSearch</title>
+</head>
+<body>
+<topbar right>
+    <item><a href="<%= deployPath %>/">Home</a></item>
+    <item></item>
+    <item><a href="<%= deployPath %>/docs">Docs</a></item>
+    <item></item>
+    <item><a href="<%= deployPath %>/doc-analysis">Search Analysis</a></item>
+</topbar>
+
+<xmp style="display:none;">
+## Currently Supported Searches & Parameters
+
+Below is a table of possible search scenarios supported by the current proposed Search UI.
+
+| Search Across | Find Results With | Supported | Type | TextOption |
+| ------------- | ----------------- | --------- | ---- | ---------- |
+| Content & Filename | Any of these words | No | - | - |
+| Content & Filename | All of these words  | Yes | 'n' | - |
+| Content & Filename | This exact phrase | Yes | 'v' | 'x' |
+| Content & Filename | None of these words | No | - | - |
+| Just Filename | Any of these words | Yes | 'o' | - |
+| Just Filename | All of these words | Yes | 'a' | - |
+| Just Filename | This exact phrase | Yes | 'e' | - |
+| Just Filename | None of these words | No | - | - |
+| Just Content | Any of these words | No | - | - |
+| Just Content | All of these words | Yes | 'c' | - |
+| Just Content| This exact phrase | No | - | - |
+| Just Content | None of these words | No | - | - |
+| File Extension | Any of these words | Yes | 'x' | - |
+| File Extension | All of these words | No | - | - |
+| File Extension | This exact phrase | No | - | - |
+| File Extension | None of these words | No | - | - |
+| Notes | Any of these words | No | - | - |
+| Notes | All of these words | Yes | 'h' | - |
+| Notes | This exact phrase | Yes | 'h' | 'x' |
+| Notes | None of these words | Yes | - | - |
+
+*Note: When using a Search Across of **'File Extension'** and a Find Results With of **'Any of these words'**, the values passed must be comma separated.*
+
+
+## Additional Supported Searches
+
+| Search Across | Find Results With | Type | TextOption |
+| ------------- | ----------------- | ---- | ---------- |
+| Notes | Match Whole Word | 'h' | 'wh' |
+| Notes | Begins With Word | 'h' | 'bw' |
+| Notes | Ends With Word | 'h' | 'ew' |
+| Notes | Use Wildcards for Words | 'h' | 'wx' |
+| Content & Filename | Match Whole Word | 'v' | 'wh' |
+| Content & Filename | Begins With Word | 'v' | 'bw' |
+| Content & Filename | Ends With Word | 'v' | 'ew' | 
+| Content & Filename | Use Wildcards for Words | 'v' | 'wx' |
+
+
+### Proposed Search UI 
+![Advanced Search Sample UI](/images/ui-sample.png "Proposed Advanced Search UI")
+
+</xmp>
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="<%= deployPath %>/javascripts/strapdown/strapdown-topbar.min.js"></script>
+</body>
+
+</html>
